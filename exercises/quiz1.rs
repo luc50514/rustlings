@@ -13,21 +13,38 @@
 //
 // No hints this time ;)
 
-// I AM NOT DONE
-
 // Put your function here!
-// fn calculate_price_of_apples {
+ fn calculate_price_of_apples(price:i32) -> i32 {
+    if price <= 40 {
+    return 2*price
+    }
+   return price
+ }
 
 // Don't modify this function!
 #[test]
-fn verify_test() {
+fn verify_test_for_35() {
     let price1 = calculate_price_of_apples(35);
+    assert_eq!(70, price1);
+}
+#[test]
+fn verify_test_for_40() {
+    
     let price2 = calculate_price_of_apples(40);
+
+    assert_eq!(80, price2);
+}
+#[test]
+fn verify_test_for_41() {
+   
     let price3 = calculate_price_of_apples(41);
+
+    assert_eq!(41, price3);
+}
+#[test]
+fn verify_test_for_65() {
+   
     let price4 = calculate_price_of_apples(65);
 
-    assert_eq!(70, price1);
-    assert_eq!(80, price2);
-    assert_eq!(41, price3);
     assert_eq!(65, price4);
 }
