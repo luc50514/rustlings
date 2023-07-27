@@ -13,7 +13,10 @@
 trait AppendBar {
     fn append_bar(self) -> Self;
 }
-
+impl AppendBar for Vec<String> {
+    // TODO: Implement `AppendBar` for type `String`.
+    fn append_bar(self)-> Vec<String>{ return format!("{}{}", self, "Bar")}
+}
 // TODO: Implement trait `AppendBar` for a vector of strings.
 
 #[cfg(test)]
