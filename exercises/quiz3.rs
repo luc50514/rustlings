@@ -15,34 +15,41 @@
 // "A+" to show that your changes allow alphabetical grades.
 //
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
+// 8 more areas one a day
 
-// I AM NOT DONE
-
-pub trait Grade{
-    fn getGrade(&self) -> String;
-}
-
-pub struct ReportCard {
-    pub grade: f32,
+pub struct ReportCard<T> {
+    pub grade: Grade<T>,
     pub student_name: String,
     pub student_age: u8,
 }
 
-impl ReportCard {
+pub struct Grade<T>{
+    pub value: T,
+}
+impl<T> Grade<T> {
+    pub fn new(value: T) -> Self {
+        Grade { value }
+    }
+   
+}
+impl <T: std::fmt::Display> ReportCard<T> {
     pub fn print(&self) -> String {
         format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+            &self.student_name, &self.student_age, &self.grade.value)
     }
 }
+
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
+  
     #[test]
-    fn generate_numeric_report_card() {
+    fn generate_numeric_report_card_number() {
+        let thegrade:Grade<f32> = Grade{value: 2.1};
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: thegrade,
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
         };
@@ -54,9 +61,9 @@ mod tests {
 
     #[test]
     fn generate_alphabetic_report_card() {
-        // TODO: Make sure to change the grade here after you finish the exercise.
+        let thegrade:Grade<&str> = Grade{value: "A+"};
         let report_card = ReportCard {
-            grade: "A+",
+            grade: thegrade,
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
@@ -65,4 +72,5 @@ mod tests {
             "Gary Plotter (11) - achieved a grade of A+"
         );
     }
+    
 }
