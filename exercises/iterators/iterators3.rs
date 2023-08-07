@@ -26,7 +26,15 @@ pub struct NotDivisibleError {
 // Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
 // Otherwise, return a suitable error.
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
-    todo!();
+    let notdivisibleError = NotDivisibleError{
+        dividend : a,
+        divisor : b
+    };
+    match b {
+        x if x == 0 => Err(DivisionError::DivideByZero),
+        x if a % x != 0 => Err(DivisionError::NotDivisible(notdivisibleError)),
+        x => Ok(x/b),
+    }
 }
 
 // Complete the function and return a value of the correct type so the test
@@ -34,7 +42,21 @@ pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
 // Desired output: Ok([1, 11, 1426, 3])
 fn result_with_list() -> () {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results: Vec<Result<i32, DivisionError>> = numbers.into_iter().map(|n| divide(n, 27)).rev().collect();
+    for result in division_results{
+        match result{
+            Ok(v) => println!("value: {v}"), 
+             Err(e) => println!("value: {e:?}"),
+        }
+    }
+  
+   /*  match division_results {
+        x if x == DivisionError::DivisionError => Err(DivisionError::DivideByZero),
+        x if x == DivisionError::NotDivisible => Err(DivisionError::NotDivisible(notdivisibleError)),
+        x => division_results.collect(),
+    } */
+
+    
 }
 
 // Complete the function and return a value of the correct type so the test
@@ -43,6 +65,7 @@ fn result_with_list() -> () {
 fn list_of_results() -> () {
     let numbers = vec![27, 297, 38502, 81];
     let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    
 }
 
 #[cfg(test)]
