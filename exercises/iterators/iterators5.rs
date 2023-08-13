@@ -10,9 +10,6 @@
 //
 // Execute `rustlings hint iterators5` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
-
 use std::collections::HashMap;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -60,19 +57,8 @@ fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progres
 }
 
 fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
-    // collection is a slice of hashmaps.
-    // collection = [{ "variables1": Complete, "from_str": None, ... },
-    //     { "variables2": Complete, ... }, ... ]
-    let mut c = 0;
-    let v: Vec<usize> = collection
-    .into_iter()
-    .map(|(x,y)|{ 
-        if y == &value {
-           c+=1;
-        } 
-        c
-    }).collect();
-    c
+  
+    collection.iter().map(|h| count_iterator(h, value)).sum()
 }
 
 #[cfg(test)]
