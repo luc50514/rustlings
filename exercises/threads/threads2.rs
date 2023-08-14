@@ -7,8 +7,6 @@
 // Execute `rustlings hint threads2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
@@ -24,16 +22,19 @@ fn main() {
         let status_shared = Arc::clone(&status);
         let handle = thread::spawn(move || {
             thread::sleep(Duration::from_millis(250));
-            // TODO: You must take an action before you update a shared value
-            status_shared.jobs_completed += 1;
+            let mut num = status_shared.jobs_completed;
+            num += 1;
         });
         handles.push(handle);
     }
     for handle in handles {
-        handle.join().unwrap();
+        let mut results =0;
+        match handle.join().unwrap(){
+            _ => results += 1
+        }
         // TODO: Print the value of the JobStatus.jobs_completed. Did you notice
         // anything interesting in the output? Do you have to 'join' on all the
         // handles?
-        println!("jobs completed {}", ???);
+        println!("jobs completed {}", results);
     }
 }
